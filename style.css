@@ -134,14 +134,33 @@ h2, img {
   color: indianred;
 }
 
-.photos-container {
+
+#photos-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 2em; /* Adds space between the photo items */
+  overflow-y: auto;
+  height: 600px;
+  margin-top: 1em;
+}
+
+.photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the photo and info */
+  background-color: #333; /* Optional: adds background color */
+  padding: 10px; /* Optional: adds padding around the photo and info */
+  border-radius: 8px;
+  margin-bottom: 4em;
 }
 
 .photo {
-  width: 60%;
-  aspect-ratio: 1 / 1;
-  margin: 0 0.5em;
+  max-width: 100%; /* Ensures the image doesn't overflow its container */
+  height: auto; /* Maintains aspect ratio */
+}
+
+.photo-info {
+  color: #FFFFFF;
+  text-align: left; /* Centers the text under the photo */
+  margin-top: 0.5em; /* Adds space between the photo and text */
 }

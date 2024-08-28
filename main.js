@@ -1,6 +1,6 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
+import './style.css';
+import javascriptLogo from './javascript.svg';
+import viteLogo from '/vite.svg';
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -8,30 +8,16 @@ document.querySelector('#app').innerHTML = `
     <p class="title">NASA REEL</p>
     <div id="photos-container"></div>
   </div>
-`
+`;
 
-// use nasa api
-// nasa image and video library
-// 4 endpoints GET https://images-api.nasa.gov
-// endpoints
-// /search
-// /asset/{nasa_id}
-// /metadata/{nasa_id}
-// /captions/{nasa_id}
-// /album/{album_name}
-
-
-// this below works, saving it for not overcalling
 document.addEventListener('DOMContentLoaded', () => {
     const apiKey = 'DEMO_KEY'; // Use 'DEMO_KEY' for testing, replace with your own key if needed
     const sol = 1000; // Mars sol number
     const apiUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&api_key=${apiKey}`;
 
-    // Fetch data from the API
     fetch(apiUrl)
-        .then(response => response.json()) // Convert response to JSON
+        .then(response => response.json())
         .then(data => {
-          // grab first ten photos
             const photos = data.photos;
             const photosContainer = document.getElementById('photos-container');
 
@@ -40,21 +26,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Create image elements for each photo and append to the container
+            // Create a container for each photo and its information
             photos.forEach(photo => {
+                const photoWrapper = document.createElement('div');
+                photoWrapper.classList.add('photo-wrapper');
+
                 const img = document.createElement('img');
+                const info = document.createElement('p');
+                
                 img.src = photo.img_src;
                 img.alt = `Mars photo taken by rover Curiosity on sol ${sol}`;
                 img.classList.add('photo');
-                photosContainer.appendChild(img);
-                // add flex to container and center elements
-                photosContainer.style.display = 'flex';
-                photosContainer.style.justifyContent = 'center';
-                photosContainer.style.alignItems = 'center';
-                // make scrollable
-                photosContainer.style.overflowY ='scroll';
-                photosContainer.style.height = '600px';
+                
+                info.textContent = `Date: ${photo.earth_date}, Rover: ${photo.rover.name}`;
+                info.classList.add('photo-info');
+
+                photoWrapper.appendChild(img);
+                photoWrapper.appendChild(info);
+                photosContainer.appendChild(photoWrapper);
             });
+
+            // Apply flexbox styling to the container
+            photosContainer.style.display = 'flex';
+            photosContainer.style.flexWrap = 'wrap'; // Allows wrapping of items
+            photosContainer.style.gap = '10px'; // Adds space between items
+            photosContainer.style.overflowY = 'auto'; // Makes container scrollable if needed
+            photosContainer.style.height = '600px';
         })
         .catch(error => {
             console.error('Error fetching data:', error);
