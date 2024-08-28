@@ -125,10 +125,23 @@ h2, img {
   margin: 1em;
 }
 
-.page-title {
+.leading, .title {
   text-transform: uppercase;
+  letter-spacing: 0.4em;
 }
 
 .mars {
-  color: indianred
+  color: indianred;
+}
+
+.photos-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo {
+  width: 60%;
+  aspect-ratio: 1 / 1;
+  margin: 0 0.5em;
 }
