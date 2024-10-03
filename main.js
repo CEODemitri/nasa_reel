@@ -1,17 +1,22 @@
 import './style.css';
-import javascriptLogo from './javascript.svg';
-import viteLogo from '/vite.svg';
+// import javascriptLogo from './javascript.svg';
+// import viteLogo from '/vite.svg';
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <h1 class="leading">Images from the <span class="mars">Mars</span> Plane</h1>
-    <p class="title">NASA REEL</p>
+    <div class="hero">
+        <h1 class="leading">Images from the <span class="mars">Mars</span> Plane</h1>
+        <p class="title">
+            <span>NASA REEL</span>
+            <span><a href="https://x.com/iprogramidesign">by ceoDemitri</a></span>
+        </p>
+    </div>
     <div id="photos-container"></div>
   </div>
 `;
 
 document.addEventListener('DOMContentLoaded', () => {
-    const apiKey = 'DEMO_KEY'; // Use 'DEMO_KEY' for testing, replace with your own key if needed
+    const apiKey = 'DEMO_KEY'; // Using 'DEMO_KEY' for testing, may get my own key if needed
     const sol = 1000; // Mars sol number
     const apiUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&api_key=${apiKey}`;
 
@@ -33,16 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const img = document.createElement('img');
                 const info = document.createElement('p');
+                const infoTwo = document.createElement('p');
                 
                 img.src = photo.img_src;
                 img.alt = `Mars photo taken by rover Curiosity on sol ${sol}`;
                 img.classList.add('photo');
                 
-                info.textContent = `Date: ${photo.earth_date}, Rover: ${photo.rover.name}`;
+                info.textContent = `Date: ${photo.earth_date}`; infoTwo.textContent = `Rover: ${photo.rover.name}`;
                 info.classList.add('photo-info');
+                infoTwo.classList.add('photo-info');
 
                 photoWrapper.appendChild(img);
                 photoWrapper.appendChild(info);
+                photoWrapper.appendChild(infoTwo);
                 photosContainer.appendChild(photoWrapper);
             });
 
